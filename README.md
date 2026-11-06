@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/icon.png" alt="" width="96" height="96"></p>
+
 <h1 align="center">Octax Solobill</h1>
 
 <p align="center">
