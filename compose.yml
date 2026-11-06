@@ -1,0 +1,28 @@
+# Octax Solobill, one container behind your own HTTPS reverse proxy.
+#   docker compose up -d
+# For a server that already runs Traefik, use compose.traefik.yml instead.
+# See docs/SELF_HOSTING.md.
+name: solobill
+
+services:
+  web:
+    image: ghcr.io/octax-app/solobill:${SOLOBILL_VERSION:-latest}
+    build: .
+    restart: unless-stopped
+    env_file: .env.production
+    environment:
+      NODE_ENV: production
+      DATA_DIR: /data
+      PORT: "3000"
+      COOKIE_SECURE: "true"
+    ports:
+      # Only reachable from this machine. Point your reverse proxy at it.
+      - "127.0.0.1:${SOLOBILL_PORT:-3000}:3000"
+    volumes:
+      - data:/data
+    # SQLite allows one writer, and invoice numbering relies on one process.
+    # Never run more than one copy of this service.
+
+volumes:
+  data:
+    name: ${SOLOBILL_DATA_VOLUME:-solobill_data}
