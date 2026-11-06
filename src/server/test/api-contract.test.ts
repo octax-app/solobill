@@ -63,7 +63,7 @@ afterAll(() => {
   // The iOS app lives in its own repo. By default it is cloned next to this one.
   const dir = path.resolve(
     process.env.IOS_FIXTURES_DIR ??
-      path.join(import.meta.dirname, '../../../../solobill-ios/MGOctaxTests/Fixtures'),
+      path.join(import.meta.dirname, '../../../../solobill-ios/SolobillTests/Fixtures'),
   )
   fs.mkdirSync(dir, { recursive: true })
   for (const [name, json] of fixtures) {
